@@ -1,0 +1,57 @@
+ARUN PRABHAT – CONTENT CALENDAR  ·  Hostinger setup (about 15 minutes)
+=====================================================================
+
+WHAT'S INSIDE
+  index.html, shim.js   the calendar app
+  api.php               the backend (saves events, uploads, talks to Claude)
+  cron.php              sends the daily / Sunday reminder emails
+  install.php           one-time setup (imports all 343 calendar days)
+  config.php            YOUR SETTINGS – edit this first
+  data/                 database file (SQLite) + seed data – locked from the web
+  uploads/              uploaded images, videos, PDFs, voice notes – locked from the web
+
+1) EDIT config.php (on your computer, or later in hPanel File Manager)
+   - EDITOR_PASSWORD  → password for the team who add/edit (share with core team)
+   - VIEWER_PASSWORD  → optional view-only password (e.g. for Arun ji / district teams)
+   - ANTHROPIC_API_KEY → from https://console.anthropic.com → API Keys
+                         (needed for "Claude reads the poster / note" – costs a few paise per item)
+   - MAIL_FROM / SMTP_USER / SMTP_PASS → a mailbox you create in hPanel → Emails,
+                         e.g. calendar@yourdomain.com and its password
+   - APP_URL → the address where the calendar will live, e.g. https://yourdomain.com/calendar/
+   Database: leave DB_HOST empty and it uses a built-in SQLite file (nothing to set up).
+   Prefer MySQL? hPanel → Databases → MySQL → create DB + user, then fill DB_HOST ('localhost'),
+   DB_NAME, DB_USER, DB_PASS.
+
+2) UPLOAD
+   hPanel → Websites → your site → File Manager → public_html
+   → New folder "calendar" → open it → Upload → upload the ZIP → right-click → Extract.
+   Make sure index.html, api.php etc. sit directly inside public_html/calendar/
+   (not inside public_html/calendar/calendar/).
+   Folder permissions: data/ and uploads/ should be 755 (default is fine).
+
+3) INSTALL
+   Open  https://yourdomain.com/calendar/install.php
+   You should see "Imported 344 calendar entries" (343 days plus the reminder settings) → then DELETE install.php in File Manager.
+
+4) OPEN THE CALENDAR
+   https://yourdomain.com/calendar/  → log in with the editor password.
+   Set the 📁 Drive main folder link and the 🔔 Reminders emails inside the app.
+
+5) TURN ON REMINDER EMAILS (cron job)
+   hPanel → Advanced → Cron Jobs → Custom PHP:
+     Command:  php /home/<YOUR-USER>/public_html/calendar/cron.php
+     (File Manager shows the full path at the top; it starts with /home/u...)
+   Schedule: once a day in the evening, India time.
+     Hostinger servers usually run on UTC, so 13:15 UTC = 6:45 PM IST:
+     minute 15, hour 13, every day, every month, every weekday.
+   Every evening it emails "Tomorrow: …" (if anything is on), and on Sundays a full next-week digest.
+   The Reminders window in the app shows "active" with the last run time after the first run.
+
+GOOD TO KNOW
+  - Voice: "Speak" types what you say (Hindi or English – pick the language next to it).
+    "Record voice note" saves the audio AND types it live, so Claude can read it.
+    Speech typing works in Chrome / Edge (desktop and Android).
+  - Uploads are stored on your server (max 50 MB each). Only logged-in people can open them.
+  - Backups: hPanel → Files → Backups covers everything (the database file sits in data/).
+  - You can change passwords any time in config.php. People already logged in stay logged in
+    for up to 30 days, so press "Log out" on shared devices.
