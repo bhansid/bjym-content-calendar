@@ -41,7 +41,7 @@ DEPLOYING WITH GIT (recommended)
 
 3) INSTALL
    Open  https://yourdomain.com/calendar/install.php
-   You should see "Imported 418 calendar entries" (417 days plus the reminder settings) → then DELETE install.php in File Manager.
+   You should see "Imported 383 calendar entries" (382 days plus the reminder settings) → then DELETE install.php in File Manager.
 
 4) OPEN THE CALENDAR
    https://yourdomain.com/calendar/  → log in with the editor password.
