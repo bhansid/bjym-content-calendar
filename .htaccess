@@ -9,3 +9,4 @@ DirectoryIndex index.html
 <FilesMatch "^(\.git.*|SETUP-GUIDE\.txt|README\.md)$">
   Require all denied
 </FilesMatch>
+RedirectMatch 404 /\.git

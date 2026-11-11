@@ -10,7 +10,17 @@ WHAT'S INSIDE
   data/                 database file (SQLite) + seed data – locked from the web
   uploads/              uploaded images, videos, PDFs, voice notes – locked from the web
 
-1) EDIT config.php (on your computer, or later in hPanel File Manager)
+DEPLOYING WITH GIT (recommended)
+   hPanel → Advanced → Git → Create a new repository:
+     Repository: git@github.com:bhansid/<repo>.git   Branch: main   Directory: calendar
+   (Private repo: copy the SSH key hPanel shows → GitHub repo → Settings → Deploy keys → Add.)
+   Then click "Auto Deployment" in hPanel, copy the webhook URL → GitHub repo → Settings →
+   Webhooks → Add webhook → paste it. Every push now updates the live site.
+   After the first deploy, do step 1 on the server: in File Manager copy
+   config.sample.php → config.php and edit it. Git never touches config.php, the
+   database or uploads.
+
+1) EDIT config.php (copy config.sample.php to config.php in hPanel File Manager, then edit)
    - EDITOR_PASSWORD  → password for the team who add/edit (share with core team)
    - VIEWER_PASSWORD  → optional view-only password (e.g. for Arun ji / district teams)
    - ANTHROPIC_API_KEY → from https://console.anthropic.com → API Keys
@@ -22,7 +32,7 @@ WHAT'S INSIDE
    Prefer MySQL? hPanel → Databases → MySQL → create DB + user, then fill DB_HOST ('localhost'),
    DB_NAME, DB_USER, DB_PASS.
 
-2) UPLOAD
+2) UPLOAD (only if you are NOT using Git)
    hPanel → Websites → your site → File Manager → public_html
    → New folder "calendar" → open it → Upload → upload the ZIP → right-click → Extract.
    Make sure index.html, api.php etc. sit directly inside public_html/calendar/
