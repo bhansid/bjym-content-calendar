@@ -1,5 +1,2 @@
-config.php
-data/*.sqlite
-data/installed.lock
-uploads/*
-!uploads/.htaccess
+node_modules/
+.netlify/

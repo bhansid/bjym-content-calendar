@@ -1,0 +1,8 @@
+{
+  "name": "bjym-content-calendar",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "latest"
+  }
+}
